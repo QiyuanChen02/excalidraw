@@ -1,13 +1,7 @@
 import { AppClassProperties, AppState, Primitive } from "../types";
-import {
-  DEFAULT_ELEMENT_BACKGROUND_COLOR_PALETTE,
-  DEFAULT_ELEMENT_BACKGROUND_PICKS,
-  DEFAULT_ELEMENT_STROKE_COLOR_PALETTE,
-  DEFAULT_ELEMENT_STROKE_PICKS,
-} from "../colors";
+
 import { trackEvent } from "../analytics";
 import { ButtonIconSelect } from "../components/ButtonIconSelect";
-import { ColorPicker } from "../components/ColorPicker/ColorPicker";
 import { IconPicker } from "../components/IconPicker";
 // TODO barnabasmolnar/editor-redesign
 // TextAlignTopIcon, TextAlignBottomIcon,TextAlignMiddleIcon,
@@ -234,99 +228,6 @@ const changeFontSize = (
 };
 
 // -----------------------------------------------------------------------------
-
-export const actionChangeStrokeColor = register({
-  name: "changeStrokeColor",
-  trackEvent: false,
-  perform: (elements, appState, value) => {
-    return {
-      ...(value.currentItemStrokeColor && {
-        elements: changeProperty(
-          elements,
-          appState,
-          (el) => {
-            return hasStrokeColor(el.type)
-              ? newElementWith(el, {
-                  strokeColor: value.currentItemStrokeColor,
-                })
-              : el;
-          },
-          true,
-        ),
-      }),
-      appState: {
-        ...appState,
-        ...value,
-      },
-      commitToHistory: !!value.currentItemStrokeColor,
-    };
-  },
-  PanelComponent: ({ elements, appState, updateData, appProps }) => (
-    <>
-      <h3 aria-hidden="true">{t("labels.stroke")}</h3>
-      <ColorPicker
-        topPicks={DEFAULT_ELEMENT_STROKE_PICKS}
-        palette={DEFAULT_ELEMENT_STROKE_COLOR_PALETTE}
-        type="elementStroke"
-        label={t("labels.stroke")}
-        color={getFormValue(
-          elements,
-          appState,
-          (element) => element.strokeColor,
-          true,
-          appState.currentItemStrokeColor,
-        )}
-        onChange={(color) => updateData({ currentItemStrokeColor: color })}
-        elements={elements}
-        appState={appState}
-        updateData={updateData}
-      />
-    </>
-  ),
-});
-
-export const actionChangeBackgroundColor = register({
-  name: "changeBackgroundColor",
-  trackEvent: false,
-  perform: (elements, appState, value) => {
-    return {
-      ...(value.currentItemBackgroundColor && {
-        elements: changeProperty(elements, appState, (el) =>
-          newElementWith(el, {
-            backgroundColor: value.currentItemBackgroundColor,
-          }),
-        ),
-      }),
-      appState: {
-        ...appState,
-        ...value,
-      },
-      commitToHistory: !!value.currentItemBackgroundColor,
-    };
-  },
-  PanelComponent: ({ elements, appState, updateData, appProps }) => (
-    <>
-      <h3 aria-hidden="true">{t("labels.background")}</h3>
-      <ColorPicker
-        topPicks={DEFAULT_ELEMENT_BACKGROUND_PICKS}
-        palette={DEFAULT_ELEMENT_BACKGROUND_COLOR_PALETTE}
-        type="elementBackground"
-        label={t("labels.background")}
-        color={getFormValue(
-          elements,
-          appState,
-          (element) => element.backgroundColor,
-          true,
-          appState.currentItemBackgroundColor,
-        )}
-        onChange={(color) => updateData({ currentItemBackgroundColor: color })}
-        elements={elements}
-        appState={appState}
-        updateData={updateData}
-      />
-    </>
-  ),
-});
 
 export const actionChangeFillStyle = register({
   name: "changeFillStyle",

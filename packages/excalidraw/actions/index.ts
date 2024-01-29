@@ -8,8 +8,6 @@ export {
 export { actionSelectAll } from "./actionSelectAll";
 export { actionDuplicateSelection } from "./actionDuplicateSelection";
 export {
-  actionChangeStrokeColor,
-  actionChangeBackgroundColor,
   actionChangeStrokeWidth,
   actionChangeFillStyle,
   actionChangeSloppiness,
@@ -20,6 +18,9 @@ export {
   actionChangeVerticalAlign,
 } from "./actionProperties";
 
+export { actionChangeBackgroundColor } from "./actionChangeBackgroundColor";
+
+export { actionChangeStrokeColor } from "./actionChangeStrokeColor";
 export {
   actionChangeViewBackgroundColor,
   actionClearCanvas,
